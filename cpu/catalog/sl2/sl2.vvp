@@ -1,0 +1,78 @@
+#! /usr/bin/vvp
+:ivl_version "11.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 10;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2009.vpi";
+S_0x55b82fc21700 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x55b82fc21890 .scope module, "tb_sll" "tb_sll" 3 19;
+ .timescale -9 -10;
+P_0x55b82fc0f810 .param/l "SHIFT" 0 3 22, +C4<00000000000000000000000000000100>;
+P_0x55b82fc0f850 .param/l "WIDTH" 0 3 21, +C4<00000000000000000000000000010000>;
+v0x55b82fc36980_0 .var "in", 15 0;
+v0x55b82fc36a70_0 .net "out", 15 0, L_0x55b82fc36c60;  1 drivers
+S_0x55b82fbe7cf0 .scope begin, "$ivl_for_loop0" "$ivl_for_loop0" 3 38, 3 38 0, S_0x55b82fc21890;
+ .timescale -9 -10;
+v0x55b82fbe7e80_0 .var/2s "i", 31 0;
+S_0x55b82fc36270 .scope module, "uut" "sl2" 3 27, 4 18 0, S_0x55b82fc21890;
+ .timescale -9 -10;
+    .port_info 0 /INPUT 16 "in";
+    .port_info 1 /OUTPUT 16 "out";
+P_0x55b82fc0d790 .param/l "SHIFT" 0 4 20, +C4<00000000000000000000000000000100>;
+P_0x55b82fc0d7d0 .param/l "WIDTH" 0 4 19, +C4<00000000000000000000000000010000>;
+v0x55b82fc36570_0 .net *"_ivl_2", 11 0, L_0x55b82fc36b40;  1 drivers
+L_0x7fb555ce0018 .functor BUFT 1, C4<0000>, C4<0>, C4<0>, C4<0>;
+v0x55b82fc36670_0 .net *"_ivl_4", 3 0, L_0x7fb555ce0018;  1 drivers
+v0x55b82fc36750_0 .net "in", 15 0, v0x55b82fc36980_0;  1 drivers
+v0x55b82fc36840_0 .net "out", 15 0, L_0x55b82fc36c60;  alias, 1 drivers
+L_0x55b82fc36b40 .part v0x55b82fc36980_0, 0, 12;
+L_0x55b82fc36c60 .concat [ 4 12 0 0], L_0x7fb555ce0018, L_0x55b82fc36b40;
+    .scope S_0x55b82fc21890;
+T_0 ;
+    %vpi_call/w 3 34 "$dumpfile", "tb_sll.vcd" {0 0 0};
+    %vpi_call/w 3 35 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x55b82fc21890 {0 0 0};
+    %fork t_1, S_0x55b82fbe7cf0;
+    %jmp t_0;
+    .scope S_0x55b82fbe7cf0;
+t_1 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0x55b82fbe7e80_0, 0, 32;
+T_0.0 ;
+    %load/vec4 v0x55b82fbe7e80_0;
+    %cmpi/s 65536, 0, 32;
+    %jmp/0xz T_0.1, 5;
+    %load/vec4 v0x55b82fbe7e80_0;
+    %pad/s 16;
+    %store/vec4 v0x55b82fc36980_0, 0, 16;
+    %delay 100, 0;
+    ; show_stmt_assign_vector: Get l-value for compressed += operand
+    %load/vec4 v0x55b82fbe7e80_0;
+    %pushi/vec4 1, 0, 32;
+    %add;
+    %cast2;
+    %store/vec4 v0x55b82fbe7e80_0, 0, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %end;
+    .scope S_0x55b82fc21890;
+t_0 %join;
+    %vpi_call/w 3 44 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0x55b82fc21890;
+T_1 ;
+    %vpi_call/w 3 49 "$monitor", "Time = %0t | in = %b | out = %b", $time, v0x55b82fc36980_0, v0x55b82fc36a70_0 {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "tb_sl2.sv";
+    "sl2.sv";
